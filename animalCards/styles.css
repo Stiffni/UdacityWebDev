@@ -1,0 +1,38 @@
+body {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+span {
+  font-weight: bold;
+}
+ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+h1 {
+  padding: 0px 0px 0px 10px;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0px 10px 10px 10px;
+}
+#card {
+  border-style: solid;
+  border-width: 2px;
+  border-color: #D3D3D3;
+  padding: 0px 10px 0px 10px;
+  width: 280px;
+  margin: auto;
+}
+#container {
+  border-style: solid;
+  border-color: #D3D3D3;
+  box-shadow: 1px 2px 5px #D3D3D3;
+  padding: 5px 5px 15px 5px;
+  width: 320px;
+}
+#interesting-fact {
+  font-style: italic;
+}

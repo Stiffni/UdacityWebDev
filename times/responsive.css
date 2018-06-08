@@ -1,0 +1,172 @@
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.header__menu {
+  display: none;
+}
+
+.hero, .top-news, .scores, .weather, .recent-news {
+  order: 10;
+}
+
+@media screen and (max-width: 300px) {
+  ul.weather__next{
+    display:none;
+  }
+  img.weather__today__image{
+    width:100%;
+    display:block;
+  }
+  span.weather__today__temp {
+    display:inline-block;
+    font-size:3em;
+  }
+  span.weather__today__deg {
+    font-size:2em;
+    display:inline-block;
+  }
+  div.weatherdiv{
+    text-align:center;
+  }
+  p.latest{
+    display:none;
+  }
+}
+
+@media screen and (max-width: 549px) {
+  p.breakingnews{
+    display:none;
+  }
+  article.description {
+    height:auto;
+  }
+  .header__logo {
+    height: 48px;
+    margin-right: 0.5em;
+  }
+  .header__title {
+    margin-left: 0;
+    font-size: 2em;
+    vertical-align: bottom; 
+  }
+  .nav {
+    z-index: 10;
+    background-color: #fff;
+    width: 300px;
+    position: absolute;
+    /* This trasform moves the drawer off canvas. */
+    -webkit-transform: translate(-300px, 0);
+    transform: translate(-300px, 0);
+    /* Optionally, we animate the drawer. */
+    transition: transform 0.3s ease;
+  }
+  .nav.open {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+  .nav__item {
+    display: list-item;
+    border-bottom: 1px solid #E0E0E0;
+    width: 100%;
+    text-align: left;
+  }
+  .header__menu {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    padding: 1em;
+  }
+  .header__menu svg {
+    width: 32px;
+    fill: #E0E0E0;
+  }
+  div {
+    display:block;
+  }
+  div.contained__table {
+    overflow-x:auto;
+    width:100%;
+  }
+  div.herodiv {
+    display:block;
+    width:100%
+  }
+  div.right {
+    display:block;
+    width:100%
+  }
+  span.weather__today{
+    font-size:1em;        
+  }
+}
+
+@media screen and (min-width: 550px) {
+  p.breakingnews{
+    display:none;
+  }
+  article.description {
+    height:auto;
+  }
+  .hero {
+    order: 0;
+  }
+  .weather {
+    order: 1;
+  }
+  div {
+    width:100%;
+    display:inline-block;
+  }
+  div.contained__table {
+   width:61%;
+   overflow-x:auto;
+  }
+  div.weatherdiv {
+   vertical-align: top;
+   width:38%;
+  }
+  span.weather__today{
+    font-size:.6em;        
+  }
+}
+
+@media screen and (min-width: 750px) {
+  p.breakingnews{
+    display:block;
+  }
+  article.description {
+    height:35%;
+  }
+  .hero {
+    width: 100%;
+  }
+  .top-news {
+    order: 1;
+  }
+  section.weather {
+    order: 3;
+  }
+  div.herodiv {
+    vertical-align: top;
+    width:61%;
+    margin:0;
+  }
+  div.topnewsdiv {
+    display:inline-block;
+    vertical-align: top;
+    width:37%;
+  }
+  span.weather__today{
+    font-size:1em;        
+  }
+}
+
+@media screen and (min-width: 850px) {
+  main, .header__inner, .nav, .content {
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+  }  
+}
