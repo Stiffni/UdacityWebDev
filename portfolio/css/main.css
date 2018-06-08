@@ -46,6 +46,7 @@ figcaption {
 a {
   color: #090101;
   font-size: 1em;
+  text-decoration: none;
 }
 
 a:visited {
