@@ -1,30 +1,60 @@
-let cards = document.getElementsByClassName('card');
-let cardTypes = ['fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb','fa-diamond'];
-let pairsOfCardTypes = cardTypes.reduce(function (res, current, index, array) {
-    return res.concat([current, current]);
-}, []);
-let shuffledCardTypes = shuffle(pairsOfCardTypes);
-
-for(let i = 0; i < cards.length; i++){
-    cards[i].firstElementChild.classList.add(shuffledCardTypes[i]);
-}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+	var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+	while (currentIndex !== 0) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
 
-    return array;
+	return array;
 }
 
+function showCard(card) {
+	card.classList.add('open', 'show');
+}
 
+function checkCard(card) {
+	if(!openCard) {
+		openCard = card;
+		return;
+	}
+
+	if(openCard.firstElementChild == card.firstElementChild) {
+	} else {
+		setTimeout(2000);
+		openCard.classList.remove('show', 'open');
+		card.classList.remove('show', 'open');
+	}
+
+	openCard = null;
+}
+
+function cardInteraction(e) {
+	const clickedCard = e.target;
+	showCard(clickedCard);
+	checkCard(clickedCard);
+}
+
+const deck = document.getElementsByClassName('deck')[0];
+const cards = deck.children;
+const numCards = cards.length;
+const cardTypes = ['fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-leaf','fa-bicycle','fa-bomb','fa-diamond'];
+const pairsOfCardTypes = cardTypes.reduce(function (res, current, index, array) {
+	return res.concat([current, current]);
+}, []);
+const shuffledCardTypes = shuffle(pairsOfCardTypes);
+let openCard = null;
+
+for(let i = 0; i < numCards; i++) {
+	cards[i].firstElementChild.classList.add(shuffledCardTypes[i]);
+}
+
+deck.addEventListener('click', cardInteraction);
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
