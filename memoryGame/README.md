@@ -3,3 +3,6 @@ This repo contains all the source code for a browser-based memory card game, whi
 
 ## Getting Started
 Take a look at the source code in github, or feel free to clone this repo and open the `index.html` in your favourite browser to try the game yourself.
+
+## Acknowledgements
+animate.css https://daneden.github.io/animate.css/
