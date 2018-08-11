@@ -29,8 +29,9 @@ function animateNoMatch(unmatchedCards) {
 	setTimeout(function() {
 		unmatchedCards.forEach(function(openCard) {
 			openCard.classList.remove('animated', 'shake', 'open', 'show', 'different');
+			openCards = [];
 		});
-	}, 1000, unmatchedCards);
+	}, 700, unmatchedCards);
 }
 
 function animateMatch(matchedCards) {
@@ -42,8 +43,9 @@ function animateMatch(matchedCards) {
 	setTimeout(function() {
 		matchedCards.forEach(function(openCard) {
 			openCard.classList.remove('animated', 'pulse', 'match');
+			openCards = [];
 		});
-	}, 1000, matchedCards);
+	}, 700, matchedCards);
 }
 
 function showWinnerModal() {
@@ -100,7 +102,6 @@ function checkCard(card) {
 	for(let i = 1; i < matchesRequired; i++) {
 		if(openCards[0].firstElementChild.className != openCards[i].firstElementChild.className) {
 			animateNoMatch(openCards);
-			openCards = [];
 			return;
 		}
 	}
@@ -111,7 +112,6 @@ function checkCard(card) {
 	if(matchesFound === totalCardTypes.length) {
 		endGame();
 	}
-	openCards = [];
 }
 
 function updateMoves() {
@@ -140,14 +140,18 @@ function gamePlay(e) {
 		startTime();
 	}
 	const clickedCard = e.target;
+
 	if(openCards.includes(clickedCard)) { //User clicked same card
 		return
 	}
-	openCards.push(clickedCard);
-	updateMoves();
-	updateStars();
-	showCard(clickedCard);
-	checkCard(clickedCard);
+
+	if(openCards.length < matchesRequired) { //Ensuring cards aren't added if list is already full
+		openCards.push(clickedCard);
+		updateMoves();
+		updateStars();
+		showCard(clickedCard);
+		checkCard(clickedCard);
+	}
 }
 
 function resetBoard() {
