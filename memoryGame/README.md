@@ -1,20 +1,5 @@
 # Memory Game Project
+This repo contains all the source code for a browser-based memory card game, which I'm working on in order to achieve the Udacity Web Developer Nanodegree.
 
-## Table of Contents
-
-* [Instructions](#instructions)
-* [Contributing](#contributing)
-
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## Getting Started
+Take a look at the source code in github, or feel free to clone this repo and open the `index.html` in your favourite browser to try the game yourself.
