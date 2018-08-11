@@ -141,6 +141,7 @@ h1 {
 }
 
 .play-again {
+	margin: 1em;
 	background-color: #36dae2;
 	border-radius: .5em;
 	border: none;
@@ -159,6 +160,7 @@ h1 {
 }
 
 .stats {
+	padding: 0;
 	list-style: none;
 	display: inline;
 }
