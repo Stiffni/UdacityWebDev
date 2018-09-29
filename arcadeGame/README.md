@@ -1,6 +1,8 @@
-frontend-nanodegree-arcade-game
-===============================
+# Arcade Game
+This repo contains all the source code for a road crossing arcade style game, which I'm working on in order to achieve the Udacity Web Developer Nanodegree.
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+## Getting Started/Running the Game
+Take a look at the source code in github, or feel free to clone this repo and open the `index.html` in your favourite browser to play the game!
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+### How To Play
+Use the arrow keys (left, right, up, down) to move you character from the safe grassy area at the bottom of the game grid, to the water tiles at the other side. Be careful not to get hit by the nasty lady bugs, or you'll get sent back to the starting line!
