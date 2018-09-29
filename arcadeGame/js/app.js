@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(){
     let randomRoad = Math.floor(Math.random() * 3);
     this.width = 100;
     this.height = 75;
@@ -11,7 +11,7 @@ var Enemy = function() {
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
+Enemy.prototype.update = function(dt){
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -19,7 +19,7 @@ Enemy.prototype.update = function(dt) {
 };
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
+Enemy.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -27,7 +27,7 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-var Player = function() {
+var Player = function(){
     this.width = 60;
     this.blankSpaceOffset = 25; //The image of the player has some blank space to account for
     this.height = 60;
@@ -43,8 +43,8 @@ Player.prototype.update = function(){
     allEnemies.forEach(function(enemy){
         let enemyWidthMax = enemy.x + enemy.width;
         let enemyHeightMax = enemy.y + enemy.height;
-        if( (player.y + player.height) > enemy.y && (player.y + player.height) < enemyHeightMax){
-            if( (playerWidthMin <= enemyWidthMax && playerWidthMin >= enemy.x) ||
+        if((player.y + player.height) > enemy.y && (player.y + player.height) < enemyHeightMax){
+            if((playerWidthMin <= enemyWidthMax && playerWidthMin >= enemy.x) ||
                 (playerWidthMax <= enemyWidthMax && playerWidthMax >= enemy.x)){
                 player.constructor();
                 allEnemies = [];
@@ -52,13 +52,13 @@ Player.prototype.update = function(){
         }
     });
     //Check for win
-    if( player.y < 10 ){
+    if(player.y < 10 ){
         winModalElement.style.display = 'block';
         replayElement.focus();
     }
 };
 
-Player.prototype.render = function() {
+Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -68,24 +68,24 @@ Player.prototype.handleInput = function(keyCode){
     let xOffset = ctx.canvas.clientWidth/numCols;
     //Lowest grass row is taller than the other squares, accounting for this with the -109 offset
     let yOffset = (ctx.canvas.clientHeight-109)/numRows;
-    switch(keyCode) {
+    switch(keyCode){
         case 'left':
-            if(this.x - xOffset > 0) {
+            if(this.x - xOffset > 0){
                 this.x -= xOffset;
             }
             break;
         case 'right':
-            if(this.x + xOffset < ctx.canvas.clientWidth) {
+            if(this.x + xOffset < ctx.canvas.clientWidth){
                 this.x += xOffset;
             }
             break;
         case 'up':
-            if(this.y - yOffset > -50) {
+            if(this.y - yOffset > -50){
                 this.y -= yOffset;
             }
             break;
         case 'down':
-            if(this.y + yOffset < (ctx.canvas.clientHeight - 150)) {
+            if(this.y + yOffset < (ctx.canvas.clientHeight - 150)){
                 this.y += yOffset;
             }
             break;
@@ -107,7 +107,7 @@ winModalElement.style.display = 'none';
     }, randWait);
 }());
 
-document.addEventListener('keyup', function(e) {
+document.addEventListener('keyup', function(e){
     var allowedKeys = {
         37: 'left',
         38: 'up',
