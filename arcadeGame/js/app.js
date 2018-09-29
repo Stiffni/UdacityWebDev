@@ -1,17 +1,12 @@
 // Enemies our player must avoid
 var Enemy = function() {
-    let enemyWidthEmpty = 10;
-    let enemyHeightEmpty = 387;
-    let enemyWidth = 506;
-    let enemyHeight = 330;
+    let randomRoad = Math.floor(Math.random() * 3);
+    this.width = 100;
+    this.height = 75;
     this.sprite = 'images/enemy-bug.png';
     this.x = 0;
-    this.y = 60;
-    this.speed = 100;
-    this.hitboxXMin = this.x + enemyWidthEmpty;
-    this.hitboxXMax = this.x + enemyWidthEmpty + enemyWidth;
-    this.hitboxYMin = this.y + enemyHeightEmpty;
-    this.hitboxYMax = this.y + enemyHeightEmpty + enemyHeight;
+    this.y = 60+(randomRoad*83); //This seemed to be the magic number to get the enemy to align nicely on a road
+    this.speed = Math.floor((Math.random()*500)+100);
 };
 
 // Update the enemy's position, required method for game
@@ -33,23 +28,33 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 
 var Player = function() {
-    let playerWidthEmpty = 50;
-    let playerHeightEmpty = 271;
-    let playerWidth = 253;
-    let playerHeight = 150;
+    this.width = 60;
+    this.blankSpaceOffset = 25; //The image of the player has some blank space to account for
+    this.height = 60;
     this.sprite = 'images/char-cat-girl.png';
     this.x = 203;
     this.y = 375;
-    this.hitboxXMin = this.x + playerWidthEmpty;
-    this.hitboxXMax = this.x + playerWidthEmpty + playerWidth;
-    this.hitboxYMin = this.y + playerHeightEmpty;
-    this.hitboxYMax = this.y + playerHeightEmpty + playerHeight;
 };
 
 Player.prototype.update = function(){
-    if( (this.hitboxXMin <= allEnemies[0].hitboxXMax && this.hitboxXMin >= allEnemies[0].hitboxXMin) ||
-        (this.hitboxXMax <= allEnemies[0].hitboxXMax && this.hitboxXMax >= allEnemies[0].hitboxXMin)){
-        alert('uh oh');
+    let playerWidthMax = this.x + this.blankSpaceOffset + this.playerWidth;
+    let playerWidthMin = this.x + this.blankSpaceOffset;
+    //Check for collision
+    allEnemies.forEach(function(enemy){
+        let enemyWidthMax = enemy.x + enemy.width;
+        let enemyHeightMax = enemy.y + enemy.height;
+        if( (player.y + player.height) > enemy.y && (player.y + player.height) < enemyHeightMax){
+            if( (playerWidthMin <= enemyWidthMax && playerWidthMin >= enemy.x) ||
+                (playerWidthMax <= enemyWidthMax && playerWidthMax >= enemy.x)){
+                player.constructor();
+                allEnemies = [];
+            }
+        }
+    });
+    //Check for win
+    if( player.y < 10 ){
+        winModalElement.style.display = 'block';
+        replayElement.focus();
     }
 };
 
@@ -88,15 +93,20 @@ Player.prototype.handleInput = function(keyCode){
 }
 
 let player = new Player();
-let allEnemies = [new Enemy()];
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+let allEnemies = [];
+const winModalElement = document.getElementsByClassName('winner-modal')[0];
+const replayElement = document.getElementsByClassName('play-again')[0];
+winModalElement.style.display = 'none';
 
+//Below function modeled after one I saw here: https://stackoverflow.com/questions/6962658/randomize-setinterval-how-to-rewrite-same-random-after-random-interval
+(function createEnemies(){
+    let randWait = Math.floor((Math.random()*600)+500);
+    setTimeout(function(){
+        allEnemies.push(new Enemy());
+        createEnemies();
+    }, randWait);
+}());
 
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -106,4 +116,10 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+replayElement.addEventListener('click', function(){
+    winModalElement.style.display = 'none';
+    player.constructor();
+    allEnemies = [];
 });
