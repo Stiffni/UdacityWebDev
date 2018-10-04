@@ -39,20 +39,21 @@ var Player = function(){
 Player.prototype.update = function(){
     let playerWidthMax = this.x + this.blankSpaceOffset + this.playerWidth;
     let playerWidthMin = this.x + this.blankSpaceOffset;
+    let self = this;
     //Check for collision
     allEnemies.forEach(function(enemy){
         let enemyWidthMax = enemy.x + enemy.width;
         let enemyHeightMax = enemy.y + enemy.height;
-        if((player.y + player.height) > enemy.y && (player.y + player.height) < enemyHeightMax){
+        if((self.y + self.height) > enemy.y && (self.y + self.height) < enemyHeightMax){
             if((playerWidthMin <= enemyWidthMax && playerWidthMin >= enemy.x) ||
                 (playerWidthMax <= enemyWidthMax && playerWidthMax >= enemy.x)){
-                player.constructor();
+                self.constructor();
                 allEnemies = [];
             }
         }
     });
     //Check for win
-    if(player.y < 10 ){
+    if(this.y < 10){
         winModalElement.style.display = 'block';
         replayElement.focus();
     }
