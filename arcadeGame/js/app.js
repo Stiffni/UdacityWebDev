@@ -1,13 +1,24 @@
+function Character(sprite, x, y, width, height){
+    this.sprite = sprite;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+}
+
+Character.prototype.render = function(){
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
 // Enemies our player must avoid
 var Enemy = function(){
     let randomRoad = Math.floor(Math.random() * 3);
-    this.width = 100;
-    this.height = 75;
-    this.sprite = 'images/enemy-bug.png';
-    this.x = 0;
-    this.y = 60+(randomRoad*83); //This seemed to be the magic number to get the enemy to align nicely on a road
+    Character.call(this, 'images/enemy-bug.png', 0, 60+(randomRoad*83), 100, 75)
     this.speed = Math.floor((Math.random()*500)+100);
 };
+
+Enemy.prototype = Object.create(Character.prototype)
+Enemy.prototype.constructor = Enemy;
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -18,23 +29,17 @@ Enemy.prototype.update = function(dt){
     this.x += this.speed*dt
 };
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function(){
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 
 var Player = function(){
-    this.width = 60;
+    Character.call(this, 'images/char-cat-girl.png', 203, 375, 60, 60)
     this.blankSpaceOffset = 25; //The image of the player has some blank space to account for
-    this.height = 60;
-    this.sprite = 'images/char-cat-girl.png';
-    this.x = 203;
-    this.y = 375;
 };
+
+Player.prototype = Object.create(Character.prototype)
+Player.prototype.constructor = Player;
 
 Player.prototype.update = function(){
     let playerWidthMax = this.x + this.blankSpaceOffset + this.playerWidth;
@@ -57,10 +62,6 @@ Player.prototype.update = function(){
         winModalElement.style.display = 'block';
         replayElement.focus();
     }
-};
-
-Player.prototype.render = function(){
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.handleInput = function(keyCode){
