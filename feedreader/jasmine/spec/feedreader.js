@@ -14,23 +14,11 @@ $(function() {
     * feeds definitions, the allFeeds variable in our application.
     */
     describe('RSS Feeds', function() {
-        /* This is our first test - it tests to make sure that the
-         * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
-         */
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
          it('should have a non-empty URL defined for each feed', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
@@ -38,10 +26,6 @@ $(function() {
             });
          });
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
         it('should have a non-empty name defined for each feed', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
@@ -50,100 +34,84 @@ $(function() {
          });
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
+        let divTags;
         let menuElement;
         let style;
         let menuWidth;
 
         beforeEach(function() {
-            menuElement = document.getElementsByClassName('slide-menu')[0];
-            style = getComputedStyle(menuElement);
-            menuWidth = parseInt(style.width,10) + parseInt(style.padding,10) * 2;
+            divTags = $("div");
+            for(let i = 0; i < $(divTags).length; i++){
+               if($(divTags[i]).hasClass('slide-menu')){
+                   menuElement = $(divTags[i]);
+                   break;
+               }
+            };
+            menuWidth = parseInt($(menuElement).css('width')) + parseInt($(menuElement).css('padding')) * 2;
         });
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+
         it('should be hidden by default', function() {
-            let transform = style.transform.split(',')[4];
-            expect(transform).not.toBeGreaterThan(-menuWidth);
+            let transform = $(menuElement).css('transform').split(',')[4];
+            //Menu should be moved farther left than the menu's width, then we know it's hidden. (Since it's shift is negative, I'm comparing it to negative width)
+            expect(transform).not.toBeGreaterThan(-menuWidth); 
         });
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+
         it('should be visible on click', function(done) {
             let menuIcon = $('.menu-icon-link');
-            let transitionDurationMilliseconds = parseFloat(style.transitionDuration,10) * 1000;
+            let transitionDurationMilliseconds = parseFloat($(menuElement).css('transitionDuration'), 10) * 1000;
             menuIcon.trigger('click');
 
             setTimeout(function() {
-                let transform = style.transform.split(',')[4];
-                expect(parseInt(transform,10)).toEqual(0);
+                let transform = $(menuElement).css('transform').split(',')[4];
+                expect(parseInt(transform, 10)).toEqual(0);
                 done();
-            },transitionDurationMilliseconds+100);
+            }, transitionDurationMilliseconds + 100);
         });
 
         it('should be hidden when clicked again', function(done) {
             let menuIcon = $('.menu-icon-link');
-            let transitionDurationMilliseconds = parseFloat(style.transitionDuration,10) * 1000;
+            let transitionDurationMilliseconds = parseFloat($(menuElement).css('transitionDuration'), 10) * 1000;
             menuIcon.trigger('click');
 
             setTimeout(function() {
-                let transform = style.transform.split(',')[4];
-                expect(transform).not.toBeGreaterThan(-menuWidth);
+                let transform = $(menuElement).css('transform').split(',')[4];
+                expect(transform).not.toBeGreaterThan(-menuWidth); 
                 done();
-            },transitionDurationMilliseconds+100);
+            }, transitionDurationMilliseconds + 100);
         });
     });
-    /* TODO: Write a new test suite named "Initial Entries" */
-    describe('Initial Entries', function() {
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+    describe('Initial Entries', function() {
         beforeEach(function(done) {
-            loadFeed(0,function() {
+            loadFeed(0, function() {
                 done();
             });
         });
 
         it('should have at least one feed entry after loadFeed is called', function(done) {
-            let entries = document.getElementsByClassName('entry');
+            let entries = $("div.feed .entry");
             expect(entries.length).toBeGreaterThan(0);
             done();
         });
     });
-    /* TODO: Write a new test suite named "New Feed Selection" */
-    describe('New Feed Selection', function() {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+    describe('New Feed Selection', function() {
         let initialEntry;
 
         beforeEach(function(done) {
-            initialEntry = document.getElementsByClassName('entry')[0].innerText;
+            initialEntry = $("div.feed .entry")[0].innerText;
 
-            loadFeed(1,function() {
+            loadFeed(1, function() {
                 done();
             });
         });
 
         it('should change content when new feed is loaded', function(done) {
-            let newEntry = document.getElementsByClassName('entry')[0].innerText;
+            let newEntry = $("div.feed .entry")[0].innerText;
             expect(newEntry).not.toBe(initialEntry);
             done();
         });
     });
-
 
 }());
