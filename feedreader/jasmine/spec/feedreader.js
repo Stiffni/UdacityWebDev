@@ -100,10 +100,11 @@ $(function() {
         let initialEntry;
 
         beforeEach(function(done) {
-            initialEntry = $("div.feed .entry")[0].innerText;
-
-            loadFeed(1, function() {
-                done();
+            loadFeed(0, function() {
+                initialEntry = $("div.feed .entry")[0].innerText;
+                loadFeed(1, function() {
+                    done();
+                });
             });
         });
 
