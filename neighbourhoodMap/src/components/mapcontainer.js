@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import Navigation from './navigation'
 
 export class MapContainer extends Component {
-  handleClick(e){
-    console.log(e);
+  constructor(props) {
+    super(props);
   }
+
   render() {
     const style = {
       width: '100%',
@@ -12,17 +14,9 @@ export class MapContainer extends Component {
     }
     return (
       <div className="map-nav-wrapper">
-        <div className="navigation">
-          <nav role="navigation" aria-label="Main">
-            <a
-              className="menu"
-              onClick={this.handleClick}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"></path>
-              </svg>
-            </a>
-          </nav>
-        </div>
+        <Navigation 
+          onNavClick={this.props.onNavClick}
+        />
         <div className="google-map" aria-label="application">
           <Map
             google={this.props.google}

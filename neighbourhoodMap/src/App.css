@@ -3,6 +3,8 @@ html, body, .root {
   width:100%;
 }
 .list-places {
+  top:40px;
+  bottom:0;
   width:300px;
   height:100%;
   background-color:#eaf0f2;
@@ -11,9 +13,11 @@ html, body, .root {
   transform: translate(-300px, 0);
   transition: transform 0.3s ease;
 }
-.list-places .open {
+.list-places.open {
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
+  z-index:1000;
+  height:auto;
 }
 .map-nav-wrapper {
   width:100%;
@@ -35,11 +39,9 @@ a.menu svg {
   width:100%;
 }
 /*********** Responsive ***********/
-.main {
-
-}
 @media screen and (min-width: 650px) {
   .list-places {
+    top:0;
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
@@ -47,5 +49,11 @@ a.menu svg {
     left:300px;
     right:0;
     width:auto;
+  }
+  .navigation {
+    display:none;
+  }
+  .google-map {
+    top:0;
   }
 }
