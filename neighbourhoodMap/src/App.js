@@ -6,7 +6,7 @@ import ListPlaces from './components/listplaces'
 class NeighbourhoodMapsApp extends React.Component {
   render() {
     return (
-      <div className="flex-container">
+      <div className="main">
         <ListPlaces />
         <MapContainer />
       </div>

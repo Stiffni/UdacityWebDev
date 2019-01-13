@@ -8,13 +8,24 @@ export class MapContainer extends Component {
       height: '100%'
     }
     return (
-      <div className="google-map" aria-label="application">
-        <Map
-          google={this.props.google}
-          zoom={14}
-          style={style}
-        >
-        </Map>
+      <div className="map-nav-wrapper">
+        <div className="navigation">
+          <nav role="navigation" aria-label="Main" className="drawer">
+            <a className="menu">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z"></path>
+              </svg>
+            </a>
+          </nav>
+        </div>
+        <div className="google-map" aria-label="application">
+          <Map
+            google={this.props.google}
+            zoom={14}
+            style={style}
+          >
+          </Map>
+        </div>
       </div>
     );
   }

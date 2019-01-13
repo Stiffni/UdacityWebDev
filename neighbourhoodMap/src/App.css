@@ -1,22 +1,39 @@
 html, body, .root {
-  height: 100%;
+  height:100%;
   width:100%;
 }
 .list-places {
   width:20%;
   height:100%;
   position:static;
-  background-color:#eaf0f2
+  background-color:#eaf0f2;
 }
-.google-map {
+.map-nav-wrapper {
   width:80%;
   height:100%;
+}
+.google-map {
+  top:50px;
+  bottom:0;
+  width:100%;
   position:absolute;
 }
-.flex-container {
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  flex-direction: row;
-  flex-wrap: wrap;
+a.menu svg {
+  width:40px;
+  fill: #000;
+}
+.navigation {
+  height:50px;
+}
+/*********** Responsive ***********/
+.main {
+  display:flex;
+  justify-content:left;
+  align-items:left;
+  flex-direction:row;
+  flex-wrap:wrap;
+  height:100%
+}
+@media screen and (min-width: 600px) {
+
 }

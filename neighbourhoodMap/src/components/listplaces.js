@@ -5,7 +5,7 @@ class ListPlaces extends Component {
   render() {
     return (
       <div className="list-places">
-        <h2>halp< /h2>
+        ListPlaces
       </div>
     )
   }
