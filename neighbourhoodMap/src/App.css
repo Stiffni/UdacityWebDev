@@ -1,0 +1,22 @@
+html, body, .root {
+  height: 100%;
+  width:100%;
+}
+.list-places {
+  width:20%;
+  height:100%;
+  position:static;
+  background-color:#eaf0f2
+}
+.google-map {
+  width:80%;
+  height:100%;
+  position:absolute;
+}
+.flex-container {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
