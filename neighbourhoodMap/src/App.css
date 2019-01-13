@@ -11,9 +11,10 @@ html, body, .root {
 .map-nav-wrapper {
   width:80%;
   height:100%;
+  position:absolute;
 }
 .google-map {
-  top:50px;
+  top:40px;
   bottom:0;
   width:100%;
   position:absolute;
@@ -23,7 +24,8 @@ a.menu svg {
   fill: #000;
 }
 .navigation {
-  height:50px;
+  height:40px;
+  width:100%;
 }
 /*********** Responsive ***********/
 .main {
@@ -32,7 +34,8 @@ a.menu svg {
   align-items:left;
   flex-direction:row;
   flex-wrap:wrap;
-  height:100%
+  height:100%;
+  width:100%;
 }
 @media screen and (min-width: 600px) {
 
