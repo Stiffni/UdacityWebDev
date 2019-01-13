@@ -7,11 +7,16 @@ html, body, .root {
   height:100%;
   background-color:#eaf0f2;
   position:absolute;
+  -webkit-transform: translate(-300px, 0);
+  transform: translate(-300px, 0);
+  transition: transform 0.3s ease;
+}
+.list-places .open {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
 }
 .map-nav-wrapper {
-  left:300px;
-  right:0;
-  width:auto;
+  width:100%;
   height:100%;
   position:absolute;
 }
@@ -33,6 +38,14 @@ a.menu svg {
 .main {
 
 }
-@media screen and (min-width: 600px) {
-
+@media screen and (min-width: 650px) {
+  .list-places {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+  .map-nav-wrapper {
+    left:300px;
+    right:0;
+    width:auto;
+  }
 }
