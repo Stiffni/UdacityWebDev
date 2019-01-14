@@ -49,15 +49,11 @@ input {
   z-index:1000;
   height:auto;
 }
-.map-nav-wrapper {
-  width:100%;
-  height:100%;
-  position:absolute;
-}
 .google-map {
   top:40px;
   bottom:0;
   width:100%;
+  height:auto;
   position:absolute;
 }
 button.menu svg {
@@ -86,16 +82,14 @@ button:hover {
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
-  .map-nav-wrapper {
+  .google-map {
+    top:0;
     left:300px;
     right:0;
     width:auto;
   }
   .navigation {
     display:none;
-  }
-  .google-map {
-    top:0;
   }
   .fav {
     font-size:2em;

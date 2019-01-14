@@ -8,10 +8,8 @@ class NeighbourhoodMapsApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuActive: false,
       restaurants: []
     };
-    this.handleNavClick = this.handleNavClick.bind(this);
   }
   componentDidMount() {
     this.setState({restaurants: Restaurants})
@@ -20,10 +18,7 @@ class NeighbourhoodMapsApp extends React.Component {
    * so we know when to add the open class to the list
    * //https://stackoverflow.com/questions/42630473/react-toggle-class-onclick
    */
-  handleNavClick() {
-    const currentState = this.state.menuActive;
-    this.setState({menuActive: !currentState});
-  }
+
   render() {
     const {restaurants, menuActive} = this.state;
     return (

@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import classNames from 'classnames'
+import Navigation from './navigation'
 
 class ListPlaces extends Component {
   constructor(){
     super();
     this.state = {
-      input: ''
+      input: '',
+      menuActive: false
     }
+    this.handleNavClick = this.handleNavClick.bind(this);
   }  
   /* Since we only show the list on the page if the page is large or the menu
    * is open, I am only focusing the first list item when it loads up and we
@@ -28,35 +31,44 @@ class ListPlaces extends Component {
   listClickHandler() {
 
   }
-  
+  handleNavClick() {
+    const currentState = this.state.menuActive;
+    this.setState({menuActive: !currentState});
+  }
   render() {
-    const {restaurants, menuActive} = this.props;
+    const {restaurants} = this.props;
+    const {menuActive, input} = this.state;
     return (
-      <div className={classNames("list-places",menuActive ? 'open': null)} //Add open class if the menu was clicked, so we can show the list
-        aria-label='Locations'>
-        <h1 className="fav">My Fav Eats</h1>
-        <input
-          value={this.state.input}
-          type="text"
-          aria-label="Filter restaurants"
-          placeholder="Filter"
-          ref={(filter) => {this.filter = filter;}}
-          onChange={this.onChangeHandler.bind(this)}
-        >
-        </input>
-        <ul>
-          {restaurants.map((restaurant,index) =>
-            <li
-              key={restaurant.id}
-              onClick={this.listClickHandler}
-              tabIndex='1'
-            >
-              <h2>{restaurant.name}</h2>
-              <h3>{restaurant.address}</h3>
-              <h3>{restaurant.category}</h3>
-            </li>
-          )}
-        </ul>
+      <div>
+        <Navigation 
+          onNavClick={this.handleNavClick}
+        />
+        <div className={classNames("list-places",menuActive ? 'open': null)} //Add open class if the menu was clicked, so we can show the list
+          aria-label='Locations'>
+          <h1 className="fav">My Fav Eats</h1>
+          <input
+            value={input}
+            type="text"
+            aria-label="Filter restaurants"
+            placeholder="Filter"
+            ref={(filter) => {this.filter = filter;}}
+            onChange={this.onChangeHandler.bind(this)}
+          >
+          </input>
+          <ul>
+            {restaurants.map((restaurant,index) =>
+              <li
+                key={restaurant.id}
+                onClick={this.listClickHandler}
+                tabIndex='1'
+              >
+                <h2>{restaurant.name}</h2>
+                <h3>{restaurant.address}</h3>
+                <h3>{restaurant.category}</h3>
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
     )
   }
