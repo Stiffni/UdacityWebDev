@@ -8,14 +8,15 @@ export class MapContainer extends Component {
       allMarkers: []
     }
     this.setMarkerState = this.setMarkerState.bind(this);
-  }  
+  }
   setMarkerState(element) {
-    this.setState((prevState) => {
-     return {allMarkers: prevState.allMarkers.concat(element.marker)}
-    })
+    if(element){
+      this.setState((prevState) => {
+      return {allMarkers: prevState.allMarkers.concat(element.marker)}
+      })
+    }
   }
   render() {
-    console.log(this.state.allMarkers)
     const style = {
       width: '100%',
       height: '100%'
@@ -31,6 +32,13 @@ export class MapContainer extends Component {
         bounds.extend(allRestaurants[j].latlng);
       }
     }
+    let infoWindowMarker = ''
+    if(this.props.clickedListRestaurantId) {
+      infoWindowMarker = (this.state.allMarkers.filter(marker => marker.name === this.state.clickedListRestaurantId)[0])
+      console.log(this.state.allMarkers)
+      console.log(infoWindowMarker)
+    }
+
     return (
       <div className="google-map" aria-label="application">
         <Map
@@ -47,13 +55,21 @@ export class MapContainer extends Component {
           <Marker
             ref={this.setMarkerState}
             key={restaurant.id}
-            name={restaurant.name}
+            name={restaurant.id}
             title={restaurant.name}
             position={restaurant.latlng}
             animation={this.props.google.maps.Animation.DROP}
           />
         )}
-
+        {infoWindowMarker &&
+          <InfoWindow
+            marker={infoWindowMarker}
+            visible={true}>
+            <div>
+              <h1>HALP</h1>
+            </div>
+          </InfoWindow>
+        }
         </Map>
       </div>
     );
