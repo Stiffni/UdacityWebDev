@@ -2,7 +2,20 @@ import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 export class MapContainer extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      allMarkers: []
+    }
+    this.setMarkerState = this.setMarkerState.bind(this);
+  }  
+  setMarkerState(element) {
+    this.setState((prevState) => {
+     return {allMarkers: prevState.allMarkers.concat(element.marker)}
+    })
+  }
   render() {
+    console.log(this.state.allMarkers)
     const style = {
       width: '100%',
       height: '100%'
@@ -32,6 +45,7 @@ export class MapContainer extends Component {
         >
         {visRestaurants.map((restaurant) =>
           <Marker
+            ref={this.setMarkerState}
             key={restaurant.id}
             name={restaurant.name}
             title={restaurant.name}
