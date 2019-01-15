@@ -3,8 +3,8 @@ import classNames from 'classnames'
 import Navigation from './navigation'
 
 class ListPlaces extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       input: '',
       menuActive: false
@@ -23,13 +23,14 @@ class ListPlaces extends Component {
       this.filter.focus();
     }
   }
-  onChangeHandler(e) {
+  handleFilterChange(e) {
     this.setState({
       input: e.target.value
     })
+    this.props.onFilterChange(e.target.value);
   }
-  listClickHandler() {
-
+  listItemClickHandler(id) {
+    this.props.OnlistItemClickHandler(id);
   }
   handleNavClick() {
     const currentState = this.state.menuActive;
@@ -52,14 +53,14 @@ class ListPlaces extends Component {
             aria-label="Filter restaurants"
             placeholder="Filter"
             ref={(filter) => {this.filter = filter;}}
-            onChange={this.onChangeHandler.bind(this)}
+            onChange={this.handleFilterChange.bind(this)}
           >
           </input>
           <ul>
-            {restaurants.map((restaurant,index) =>
+            {restaurants.map((restaurant) =>
               <li
                 key={restaurant.id}
-                onClick={this.listClickHandler}
+                onClick={() => this.listItemClickHandler(restaurant.id)}
                 tabIndex='1'
               >
                 <h2>{restaurant.name}</h2>
@@ -67,6 +68,11 @@ class ListPlaces extends Component {
                 <h3>{restaurant.category}</h3>
               </li>
             )}
+            {restaurants.length === 0 && 
+              <li>
+                <h2>No results found</h2>
+              </li>
+            }
           </ul>
         </div>
       </div>

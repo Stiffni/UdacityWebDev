@@ -7,10 +7,16 @@ export class MapContainer extends Component {
       width: '100%',
       height: '100%'
     }
-    const {restaurants} = this.props;
+    const {allRestaurants, visRestaurants} = this.props;
     let bounds = new this.props.google.maps.LatLngBounds();
-    for (var i = 0; i < restaurants.length; i++) {
-      bounds.extend(restaurants[i].latlng);
+    if(visRestaurants.length > 0){
+      for (var i = 0; i < visRestaurants.length; i++) {
+        bounds.extend(visRestaurants[i].latlng);
+      }
+    } else {
+      for (var j = 0; j < allRestaurants.length; j++) {
+        bounds.extend(allRestaurants[j].latlng);
+      }
     }
     return (
       <div className="google-map" aria-label="application">
@@ -24,15 +30,16 @@ export class MapContainer extends Component {
           style={style}
           bounds={bounds}
         >
-        {restaurants.map((restaurant) => 
+        {visRestaurants.map((restaurant) =>
           <Marker
             key={restaurant.id}
             name={restaurant.name}
             title={restaurant.name}
             position={restaurant.latlng}
+            animation={this.props.google.maps.Animation.DROP}
           />
         )}
-        
+
         </Map>
       </div>
     );
