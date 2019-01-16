@@ -75,7 +75,6 @@ export class MapContainer extends Component {
               onClick={this.onMarkerClick}
             />
           )}
-          {this.state.activeMarker !== '' &&
           <InfoWindow
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}>
@@ -83,7 +82,6 @@ export class MapContainer extends Component {
               <h3>{this.state.selectedPlace}</h3>
             </div>
           </InfoWindow>
-          }
         </Map>
       </div>
     );
