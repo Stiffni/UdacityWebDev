@@ -5,9 +5,28 @@ export class MapContainer extends Component {
   constructor(props){
     super(props);
     this.state = {
-      allMarkers: []
+      allMarkers: [],
+      activeMarker: {},
+      showingInfoWindow: false,
+      selectedPlace: ''
     }
     this.setMarkerState = this.setMarkerState.bind(this);
+    this.onMarkerClick = this.onMarkerClick.bind(this);
+    this.onMapClicked = this.onMapClicked.bind(this);
+  }
+  onMarkerClick(props, marker, e) {
+    this.setState({
+      selectedPlace:props.title,
+      activeMarker:marker,
+      showingInfoWindow:true
+    });
+  }
+  onMapClicked(props) {
+    this.setState({
+      activeMarker:null,
+      showingInfoWindow:false,
+      selectedPlace:''
+    })
   }
   setMarkerState(element) {
     if(element){
@@ -21,9 +40,9 @@ export class MapContainer extends Component {
       width: '100%',
       height: '100%'
     }
-    const {allRestaurants, visRestaurants} = this.props;
+    const {allRestaurants, visRestaurants, clickedListRestaurantId} = this.props;
     let bounds = new this.props.google.maps.LatLngBounds();
-    if(visRestaurants.length > 0){
+    if(visRestaurants.length > 0) {
       for (var i = 0; i < visRestaurants.length; i++) {
         bounds.extend(visRestaurants[i].latlng);
       }
@@ -32,13 +51,6 @@ export class MapContainer extends Component {
         bounds.extend(allRestaurants[j].latlng);
       }
     }
-    let infoWindowMarker = ''
-    if(this.props.clickedListRestaurantId) {
-      infoWindowMarker = (this.state.allMarkers.filter(marker => marker.name === this.state.clickedListRestaurantId)[0])
-      console.log(this.state.allMarkers)
-      console.log(infoWindowMarker)
-    }
-
     return (
       <div className="google-map" aria-label="application">
         <Map
@@ -50,26 +62,28 @@ export class MapContainer extends Component {
           zoom={17}
           style={style}
           bounds={bounds}
+          onClick={this.onMapClicked}
         >
-        {visRestaurants.map((restaurant) =>
-          <Marker
-            ref={this.setMarkerState}
-            key={restaurant.id}
-            name={restaurant.id}
-            title={restaurant.name}
-            position={restaurant.latlng}
-            animation={this.props.google.maps.Animation.DROP}
-          />
-        )}
-        {infoWindowMarker &&
+          {visRestaurants.map((restaurant) =>
+            <Marker
+              ref={this.setMarkerState}
+              key={restaurant.id}
+              name={restaurant.id}
+              title={restaurant.name}
+              position={restaurant.latlng}
+              animation={this.props.google.maps.Animation.DROP}
+              onClick={this.onMarkerClick}
+            />
+          )}
+          {this.state.activeMarker !== '' &&
           <InfoWindow
-            marker={infoWindowMarker}
-            visible={true}>
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}>
             <div>
-              <h1>HALP</h1>
+              <h3>{this.state.selectedPlace}</h3>
             </div>
           </InfoWindow>
-        }
+          }
         </Map>
       </div>
     );

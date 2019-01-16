@@ -2,8 +2,6 @@
   {
     "id": 1,
     "name": "Kinkaku Izakaya",
-    "category": "Sushi",
-    "address": "217 King St W",
     "latlng": {
       "lat": 43.451096,
       "lng": -80.493247
@@ -12,8 +10,6 @@
   {
     "id": 2,
     "name": "PhoDNK",
-    "category": "Vietnamese",
-    "address": "151 King St W",
     "latlng": {
       "lat": 43.450747,
       "lng": -80.491890
@@ -22,8 +18,6 @@
   {
     "id": 3,
     "name": "271 West",
-    "category": "Italian",
-    "address": "271 King St W",
     "latlng": {
       "lat": 43.451474,
       "lng": -80.494139
@@ -32,8 +26,6 @@
   {
     "id": 4,
     "name": "Matter Of Taste",
-    "category": "Cafe",
-    "address": "115 King St W",
     "latlng": {
       "lat": 43.450531,
       "lng": -80.491255
@@ -42,8 +34,6 @@
   {
     "id": 5,
     "name": "Big Fat Pita",
-    "category": "Greek",
-    "address": "85 King St W",
     "latlng": {
       "lat": 43.450314,
       "lng": -80.490770

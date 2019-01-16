@@ -3,6 +3,7 @@ import './App.css'
 import MapContainer from './components/mapcontainer'
 import ListPlaces from './components/listplaces'
 import Restaurants from './data/locations.json'
+import * as FoursquareAPI from './fourSquareAPI'
 
 class NeighbourhoodMapsApp extends React.Component {
   constructor(props) {
@@ -15,9 +16,23 @@ class NeighbourhoodMapsApp extends React.Component {
     this.listItemClickHandler = this.listItemClickHandler.bind(this);
   }
   componentDidMount() {
-    this.setState({
-      visibleRestaurants: Restaurants
-    })
+    for(let i=0; i<Restaurants.length; i++) {
+      FoursquareAPI.get(Restaurants[i].name, Restaurants[i].latlng.lat, Restaurants[i].latlng.lng).then(result => {
+          if(result.response.venues.length > 0 && result.response.venues[0].location.address) {
+            Restaurants[i].address = result.response.venues[0].location.address;
+          } else {
+            Restaurants[i].address = ''
+          }
+          if(result.response.venues.length > 0 && result.response.venues[0].categories.length > 0 && result.response.venues[0].categories[0].shortName) {
+            Restaurants[i].category = result.response.venues[0].categories[0].shortName;
+          } else {
+            Restaurants[i].category = ''
+          }
+          this.setState((prevState) => ({
+            visibleRestaurants: prevState.visibleRestaurants.concat(Restaurants[i])
+          }));
+       })
+    }
   }
   /* Filter the restaurants when someone types in the filter box
    * https://stackoverflow.com/questions/41436253/how-to-filter-list-while-typing-with-input-field
