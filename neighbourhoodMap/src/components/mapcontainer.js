@@ -2,45 +2,31 @@ import React, {Component} from 'react'
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 export class MapContainer extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = {
-      allMarkers: [],
-      activeMarker: {},
-      showingInfoWindow: false,
-      selectedPlace: ''
-    }
     this.setMarkerState = this.setMarkerState.bind(this);
-    this.onMarkerClick = this.onMarkerClick.bind(this);
-    this.onMapClicked = this.onMapClicked.bind(this);
+    this.setMapState = this.setMapState.bind(this);
+    this.handleMarkerClick = this.handleMarkerClick.bind(this);
+    this.handleMapClick = this.handleMapClick.bind(this);
   }
-  onMarkerClick(props, marker, e) {
-    this.setState({
-      selectedPlace:props.title,
-      activeMarker:marker,
-      showingInfoWindow:true
-    });
+  handleMarkerClick(props, marker, e) {
+    this.props.onMarkerClick(props, marker)
   }
-  onMapClicked(props) {
-    this.setState({
-      activeMarker:null,
-      showingInfoWindow:false,
-      selectedPlace:''
-    })
+  handleMapClick(props) {
+    this.props.onMapClick(props);
   }
   setMarkerState(element) {
-    if(element){
-      this.setState((prevState) => {
-      return {allMarkers: prevState.allMarkers.concat(element.marker)}
-      })
-    }
+    this.props.setAppMarkerState(element);
+  }
+  setMapState(element) {
+    this.props.setAppMapState(element);
   }
   render() {
     const style = {
       width: '100%',
       height: '100%'
     }
-    const {allRestaurants, visRestaurants, clickedListRestaurantId} = this.props;
+    const {allRestaurants, visRestaurants, clickedListRestaurantName} = this.props;
     let bounds = new this.props.google.maps.LatLngBounds();
     if(visRestaurants.length > 0) {
       for (var i = 0; i < visRestaurants.length; i++) {
@@ -54,6 +40,7 @@ export class MapContainer extends Component {
     return (
       <div className="google-map" aria-label="application">
         <Map
+          ref={this.setMapState}
           initialCenter={{
             lat: 43.450702,
             lng: -80.491410
@@ -62,24 +49,26 @@ export class MapContainer extends Component {
           zoom={17}
           style={style}
           bounds={bounds}
-          onClick={this.onMapClicked}
+          onClick={this.handleMapClick}
         >
           {visRestaurants.map((restaurant) =>
             <Marker
               ref={this.setMarkerState}
               key={restaurant.id}
-              name={restaurant.id}
+              name={restaurant.name}
               title={restaurant.name}
               position={restaurant.latlng}
               animation={this.props.google.maps.Animation.DROP}
-              onClick={this.onMarkerClick}
+              onClick={this.handleMarkerClick}
             />
           )}
           <InfoWindow
-            marker={this.state.activeMarker}
-            visible={this.state.showingInfoWindow}>
+            marker={this.props.activeMarker}
+            visible={this.props.showingInfoWindow}>
             <div>
-              <h3>{this.state.selectedPlace}</h3>
+              <h3>{this.props.selectedPlace.name}</h3>
+              <h4>{this.props.selectedPlace.category}</h4>
+              <h4>{this.props.selectedPlace.address}</h4>
             </div>
           </InfoWindow>
         </Map>

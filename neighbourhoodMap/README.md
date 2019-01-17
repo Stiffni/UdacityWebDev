@@ -1,7 +1,7 @@
 # Neighbourhood Map Project
 
 This repo contains all the source code for the Neighbourhood Map app, which I'm working on in order to achieve the Udacity Web Developer Nanodegree.
-This app shows you my favourite restaurants where I live, and shows Yelp reviews using their API. This project uses React for these components.
+This app shows you my favourite restaurants where I live, and shows their address and category of food from the FourSquare API. This project uses React for these components.
 
 ## Getting Started
 * clone this repo to your machine
