@@ -61,7 +61,7 @@ class ListPlaces extends Component {
               <li
                 key={restaurant.id}
                 onClick={() => this.listItemClickHandler(restaurant.name)}
-                tabIndex='1'
+                tabIndex='0'
               >
                 <h2>{restaurant.name}</h2>
                 <h3>{restaurant.category}</h3>

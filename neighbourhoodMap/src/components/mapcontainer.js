@@ -26,7 +26,7 @@ export class MapContainer extends Component {
       width: '100%',
       height: '100%'
     }
-    const {allRestaurants, visRestaurants, clickedListRestaurantName} = this.props;
+    const {allRestaurants, visRestaurants} = this.props;
     let bounds = new this.props.google.maps.LatLngBounds();
     if(visRestaurants.length > 0) {
       for (var i = 0; i < visRestaurants.length; i++) {
@@ -52,7 +52,7 @@ export class MapContainer extends Component {
           onClick={this.handleMapClick}
         >
           {visRestaurants.map((restaurant) =>
-            <Marker
+            <Marker //I can't figure out how to alttext or tabindex this componenent
               ref={this.setMarkerState}
               key={restaurant.id}
               name={restaurant.name}

@@ -13,4 +13,3 @@ export const get = (restaurant, latitude, longitude) =>
   fetch(`${api}?ll=${latitude},${longitude}&query=${restaurant}&radius=50&client_id=HFXTUWWZKWBKYSVAPLVPB25TMM1WTWYNTRGTEGNPCCF2ZUBJ&client_secret=CPPLVBNGIDDAWMFB5YQPHWZWAXC5GV3CITCWBYN4N4UC13AK
 &v=20190115`, { headers })
     .then(res => res.json())
-    .catch(err => alert('Unable to get response from FourSquare, some page data may be missing! ' + err))
