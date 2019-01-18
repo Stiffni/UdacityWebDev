@@ -85,6 +85,7 @@ class NeighbourhoodMapsApp extends React.Component {
     }
   }
   handleClose(input) {
+    console.log('CLOSE IT')
     if(this.state.showingInfoWindow) {
       this.setState({
         showingInfoWindow: false,
