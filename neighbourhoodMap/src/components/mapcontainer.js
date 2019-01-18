@@ -59,11 +59,12 @@ export class MapContainer extends Component {
           {visRestaurants.map((restaurant) =>
             <Marker //I can't figure out how to alttext or tabindex this componenent
               ref={this.setMarkerState}
+              //Combining these posts https://github.com/tomchentw/react-google-maps/issues/548 https://stackoverflow.com/questions/51160344/animate-marker-when-click-on-a-list-item-google-maps-react
+              icon={this.props.activeMarker ? (this.props.activeMarker.name === restaurant.name ? "http://maps.google.com/mapfiles/ms/icons/blue-dot.png" : "http://maps.google.com/mapfiles/ms/icons/red-dot.png" ):"http://maps.google.com/mapfiles/ms/icons/red-dot.png"}
               key={restaurant.id}
               name={restaurant.name}
               title={restaurant.name}
               position={restaurant.latlng}
-              animation={this.props.google.maps.Animation.DROP}
               onClick={this.handleMarkerClick}
             />
           )}
