@@ -25,7 +25,7 @@ export class MapContainer extends Component {
     const style = {
       width: '100%',
       height: '100%'
-    }
+    };
     const {allRestaurants, visRestaurants} = this.props;
     let bounds = new this.props.google.maps.LatLngBounds();
     if(visRestaurants.length > 0) {
@@ -37,6 +37,7 @@ export class MapContainer extends Component {
         bounds.extend(allRestaurants[j].latlng);
       }
     }
+    window.gm_authFailure = () => {alert("We experienced an error authenticating with the Google Maps API")};
     return (
       <div className="google-map" aria-label="application">
         <Map
