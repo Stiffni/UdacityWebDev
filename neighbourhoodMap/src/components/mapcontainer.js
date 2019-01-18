@@ -17,7 +17,6 @@ export class MapContainer extends Component {
     this.props.onMapClick(props);
   }
   handleClose(props) {
-    console.log("IH")
     this.props.onClose(props);
   }
   setMarkerState(element) {
