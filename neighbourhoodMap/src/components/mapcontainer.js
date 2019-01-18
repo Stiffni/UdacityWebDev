@@ -8,12 +8,16 @@ export class MapContainer extends Component {
     this.setMapState = this.setMapState.bind(this);
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   handleMarkerClick(props, marker, e) {
     this.props.onMarkerClick(props, marker)
   }
   handleMapClick(props) {
     this.props.onMapClick(props);
+  }
+  handleClose(props) {
+    this.props.onClose(props);
   }
   setMarkerState(element) {
     this.props.setAppMarkerState(element);
@@ -65,7 +69,8 @@ export class MapContainer extends Component {
           )}
           <InfoWindow
             marker={this.props.activeMarker}
-            visible={this.props.showingInfoWindow}>
+            visible={this.props.showingInfoWindow}
+            onClose={this.props.handleClose}>
             <div>
               <h3>{this.props.selectedPlace.name}</h3>
               <h4>{this.props.selectedPlace.category}</h4>

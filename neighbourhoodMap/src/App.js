@@ -23,14 +23,15 @@ class NeighbourhoodMapsApp extends React.Component {
     this.setAppMapState = this.setAppMapState.bind(this);
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
     this.handleMapClick = this.handleMapClick.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   
   componentDidMount() {
     //Check API First so we don't loop over a failing API
     FoursquareAPI.get('someplace', '43.451474', '-80.494139').then(() => {
       for(let i=0; i<Restaurants.length; i++) {
-        Restaurants[i].address = 'Not found' //Set some initial data
-        Restaurants[i].category = 'Not found'
+        Restaurants[i].address = 'Not found'; //Set some initial data
+        Restaurants[i].category = 'Not found';
         //Get data from foursquare that we can display later
         FoursquareAPI.get(Restaurants[i].name, Restaurants[i].latlng.lat, Restaurants[i].latlng.lng).then(result => {
           if(result.response.venues.length > 0 && result.response.venues[0].location.address) {
@@ -55,7 +56,7 @@ class NeighbourhoodMapsApp extends React.Component {
    */
   handleFilterChange(input) {
     let filteredResults = Restaurants
-      .filter(restaurant => input === '' || restaurant.name.toLowerCase().includes(input.toLowerCase()))
+      .filter(restaurant => input === '' || restaurant.name.toLowerCase().includes(input.toLowerCase()));
       this.setState({
         visibleRestaurants: filteredResults
       });
@@ -83,9 +84,17 @@ class NeighbourhoodMapsApp extends React.Component {
       this.setState({map:element.map})
     }
   }
+  handleClose(input) {
+    if(this.state.showingInfoWindow) {
+      this.setState({
+        showingInfoWindow: false,
+        activeMarker: null
+      });
+    }
+  }
   //Show InfoWindow when someone clicks on a marker or list item
   handleMarkerClick(props, marker) {
-    let showingRestaurant = Restaurants.filter((restaurant) => restaurant.name === props.name)[0]
+    let showingRestaurant = Restaurants.filter((restaurant) => restaurant.name === props.name)[0];
     this.setState({
       selectedPlace:showingRestaurant,
       activeMarker:marker,
@@ -120,6 +129,7 @@ class NeighbourhoodMapsApp extends React.Component {
           showingInfoWindow={this.state.showingInfoWindow}
           onMapClick={this.handleMapClick}
           setAppMapState={this.setAppMapState}
+          onClose={this.handleClose}
         />
       </div>
     )
